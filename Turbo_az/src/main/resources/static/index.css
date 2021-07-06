@@ -1,0 +1,537 @@
+body {
+    /*background: aqua !important;*/
+}
+
+.head {
+    background: #292929;
+    height: 110px;
+    width: 1370px;
+    margin-top: -10px;
+    margin-left: -10px;
+}
+
+#logoButton {
+    background: #ca1016;
+    height: 90px;
+    width: 250px;
+    margin-left: 200px;
+    margin-top: 20px;
+    border-bottom-color: #ca1016;
+    border-bottom-style: none;
+}
+
+#logoButton img {
+    height: 90px;
+    width: 250px;
+    margin-top: 20px;
+}
+
+.HomeButtons {
+    background: #ca1016;
+    height: 50px;
+    width: 1370px;
+    margin-left: -10px;
+}
+
+#ButtonOne {
+    margin-left: 200px;
+}
+
+.HomeButtons button {
+    background: #ca1016;
+    height: 50px;
+    width: auto;
+    border-style: none;
+    font-family: "Times New Roman", Times, serif;
+    color: white;
+    font-size: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-left: -5px;
+}
+
+.AddIcon {
+    height: 33px !important;
+    width: 33px !important;
+    text-align: center;
+    padding-right: 10px !important;
+    margin-top: -5px !important;
+    color: white !important;
+}
+
+#ButtonAdd {
+    background: #7ed321;
+}
+
+#Cars {
+    margin-left: 190px;
+    background: cornflowerblue;
+    width: 985px;
+    height: 2000px;
+    position: relative;
+    padding-left: 13px;
+}
+
+#CarCard {
+    height: 280px;
+    width: 232px;
+    display: inline-block;
+    margin-right: 10px;
+    margin-top: 15px;
+}
+
+#Cars div img {
+    height: 200px;
+    width: 232px;
+    display: inline-block;
+}
+
+#Cars div img:hover {
+    cursor: pointer;
+}
+
+#Cars div h4 {
+    background: red !important;
+    height: 30px;
+    width: 118px;
+    margin-top: -30px;
+    position: absolute;
+    text-align: center !important;
+    font-size: 18px;
+    padding-top: 5px;
+    cursor: pointer;
+}
+
+#AboutCar {
+    height: 80px;
+    width: 232px;
+    background: whitesmoke;
+    margin-bottom: 70px;
+    border-color: ghostwhite;
+}
+
+#AboutCar:hover {
+    background: lightblue !important;
+    cursor: pointer;
+}
+
+#Cars div h1 {
+    padding-left: 15px;
+    padding-top: 10px;
+    text-align: left;
+    font: bold 15px "Arial Black" !important;
+}
+
+#Cars div h2 {
+    padding-left: 15px;
+    /*padding-top: 5px;*/
+    text-align: left;
+    font: bold 12px Arial !important;
+}
+
+#search {
+    background: #d8d8d8;
+    height: 130px;
+    width: 985px;
+    margin-left: 190px;
+    padding-left: 13px;
+    padding-top: 20px;
+    margin-bottom: 30px;
+}
+
+.searchButtons {
+    margin-bottom: 15px;
+    display: inline-block;
+}
+
+.dropdownMenuButton1, .dropdownMenuButton2 {
+    height: 37px;
+    width: 150px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background: white;
+    display: inline-block;
+    border-radius: 7px 0 0 7px;
+    text-align: center;
+    font: bold 14px Arial;
+    color: dimgray;
+    /*margin-left: 15px;*/
+    padding-bottom: 4px;
+    border-style: none;
+}
+
+.money {
+    height: 37px;
+    width: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    background: white;
+    display: inline-block;
+    border-radius: 7px 0 0 7px;
+    font: bold 15px Arial;
+    color: dimgray;
+    padding-top: 8px;
+    margin-left: 15px;
+}
+
+.year {
+    height: 37px;
+    width: 150px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background: white;
+    display: inline-block;
+    border-radius: 7px 0 0 7px;
+    text-align: center;
+    font: bold 15px Arial;
+    color: dimgray;
+    margin-left: 15px;
+    padding-bottom: 4px;
+    border-style: none;
+}
+
+.dropdown-menu {
+    width: auto !important;
+    border-radius: 5px !important;
+}
+
+.dropdownMenuButton3 {
+    border-radius: 0 !important;
+    height: 36px;
+    padding-top: 5px !important;
+    font: bold 15px Arial !important;
+    color: dimgray !important;
+}
+
+#search {
+    border-radius: 10px;
+    border-style: groove;
+    border-top-style: none;
+}
+
+.minMoney, .maksMoney {
+    height: 36px !important;
+    width: 100px !important;
+    font: bold 15px Arial;
+    color: dimgray;
+    display: inline-block !important;
+    border-style: none;
+    padding-bottom: 5px;
+    border-color: white;
+    padding-left: 10px;
+}
+
+.maksMoney {
+    border-radius: 0 7px 7px 0;
+}
+
+.creditBox, .barterBox {
+    height: 37px;
+    width: auto;
+    background: white;
+    display: inline-block;
+    border-radius: 7px;
+    font: bold 15px Arial;
+    color: dimgray;
+    padding: 2px 15px 5px 15px;
+    margin-left: 15px;
+}
+
+.checkboxCredit, .checkboxBarter {
+    height: 15px;
+    width: 15px;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+.dropdownMenuButton4, .dropdownMenuButton5 {
+    height: 37px;
+    width: auto;
+    margin-left: 15px !important;
+    border-radius: 7px !important;
+    font: bold 15px Arial !important;
+    color: dimgray !important;
+
+}
+
+#searchButton {
+    height: 37px;
+    width: 110px;
+    background: #c71b25;
+    display: inline-block;
+    border-radius: 7px;
+    font: bold 15px Arial;
+    color: white;
+    margin-left: 15px;
+    border-style: none;
+    padding: 2px 15px 5px 15px;
+}
+
+#searchButtonOther {
+    height: 37px;
+    width: 110px;
+    padding: 2px 15px 5px 15px;
+    background: #797979;
+    display: inline-block;
+    border-radius: 7px;
+    font: bold 15px Arial;
+    color: white;
+    margin-left: 15px;
+    border-style: none;
+}
+
+#addModal, #updateModal {
+    background: #d8d8d8 !important;
+    border-radius: 20px !important;
+    width: 700px !important;
+    margin-left: -100px !important;
+}
+
+#deleteModal {
+    background: #d8d8d8 !important;
+    border-radius: 20px !important;
+    width: 700px !important;
+    margin-left: -100px !important;
+    margin-top: 150px !important;
+}
+
+.modal-title {
+    text-align: center !important;
+    margin-left: 220px;
+    font-size: 30px !important;
+}
+
+.modal-title-update {
+    text-align: center !important;
+    margin-left: 185px;
+    font-size: 30px !important;
+}
+
+.modal-title-delete {
+    text-align: center !important;
+    margin-left: 250px;
+    font-size: 30px !important;
+}
+
+.addAndUpdate {
+    color: red;
+    border-radius: 30px;
+    font: 20px "Times New Roman";
+    outline: none;
+    padding: 0 10px;
+    margin: 0 0 0 14px;
+    height: 25px;
+    float: right;
+}
+
+.addBtn {
+    width: 100%;
+    text-align: right !important;
+}
+
+.addButton {
+    width: 150px;
+    border-radius: 15px !important;
+    margin-left: 20px !important;
+}
+
+#aboutCars {
+    margin-top: 60px;
+    margin-left: 190px;
+    /*background: cornflowerblue;*/
+    width: 985px;
+    height: 2000px;
+    position: relative;
+    padding-left: 13px;
+}
+
+#photoCar {
+    background: #323232;
+    width: 985px;
+    height: 400px;
+    margin-left: -13px;
+}
+
+#photoAbout {
+    width: 500px;
+    height: 400px;
+    padding-left: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#moneyAbout {
+    background: #c71b25 !important;
+    height: 80px;
+    width: 200px;
+    text-align: center !important;
+    font-size: 25px;
+    color: white;
+    padding-top: 20px;
+    position: relative !important;
+    margin: 40px 30px 0 30px;
+}
+
+#carList {
+    display: inline-block;
+    background: #f8fcfd;
+    width: 985px;
+    height: 180px;
+    margin-left: -13px;
+    border: 2px solid #e3f2f9;
+}
+
+#markAndModelAndMotorAndYear {
+    position: absolute !important;
+    color: #192843;
+    font: 33px "Times New Roman";
+    margin-top: 20px !important;
+}
+
+#carKm {
+    position: absolute !important;
+    color: #192843;
+    font: 33px "Times New Roman";
+    margin-top: -50px;
+    margin-left: 260px;
+}
+
+#callIcon {
+    width: 30px !important;
+    height: 30px;
+    margin-left: 20px;
+    margin-right: 20px;
+    position: relative;
+}
+
+#numberCall1 {
+    font: 15px "Times New Roman";
+    color: #192843;
+    margin-top: -10px;
+    position: absolute;
+}
+
+#numberCall2 {
+    font: 15px "Times New Roman";
+    color: #192843;
+    margin-left: 70px;
+    margin-top: -18px;
+    position: absolute;
+}
+
+#callList {
+    background: #f8fcfd;
+    margin-left: 30px;
+    padding-top: 25px;
+    margin-top: 25px;
+    width: 200px;
+    height: 100px;
+    border: 1px solid red;
+}
+
+#customerName {
+    color: #c71b25;
+    font: 18px "Times New Roman";
+    position: absolute;
+    margin-left: 70px;
+    margin-top: 5px;
+}
+
+#leftArea {
+    display: inline-block;
+    position: relative;
+    width: 260px;
+    height: 300px;
+    background: white;
+    margin-left: -13px;
+}
+
+#rightArea {
+    display: inline-block;
+    position: absolute;
+    width: 725px;
+    height: 500px;
+    margin-top: 25px;
+}
+
+#leftOfRight {
+    display: inline-block;
+    position: relative;
+    width: 340px;
+    height: 480px;
+}
+
+#leftAbout {
+    background: white;
+    width: 170px;
+    color: black;
+    font: 18px "Times New Roman";
+    font-weight: bold;
+    display: inline-block;
+    position: relative;
+}
+
+#rightAbout {
+    background: white;
+    width: 170px;
+    color: black;
+    font: 18px "Times New Roman";
+    display: inline-block;
+    position: absolute;
+}
+
+.borderStyle {
+    border-top: 1px solid darkgrey;
+    width: 170px;
+    height: 30px;
+    padding-top: 5px;
+    padding-left: 5px;
+}
+
+#rightFromRightArea {
+    width: 355px;
+    height: 480px;
+    position: absolute;
+    display: inline-block;
+    margin-left: 30px;
+    margin-top: -10px;
+}
+
+.ulSize {
+    font: 17px "Times New Roman";
+    padding-top: 5px;
+}
+
+#UpdateAndDelete {
+    border-top: 1px solid darkgrey;
+    padding-top: 50px;
+    padding-left: 32px;
+}
+
+#update {
+    border: 2px solid darkturquoise;
+    font: 20px "Times New Roman";
+    width: 140px;
+    height: 40px;
+    text-align: center;
+    color: darkturquoise;
+}
+
+#deleteButton {
+    border: 2px solid #c71b25;
+    font: 20px "Times New Roman";
+    width: 140px;
+    height: 40px;
+    text-align: center;
+    color: #c71b25;
+}
+
+#update img, #deleteButton img {
+    margin-right: 10px;
+}
+
+.modal-body-delete {
+    font: 20px "Times New Roman";
+    color: #ca1016;
+    padding-left: 50px;
+}

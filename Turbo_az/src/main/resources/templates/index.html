@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Turbo.az</title>
+    <link rel="stylesheet" href="../index.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+            crossorigin="anonymous"></script>
+
+    <script>
+
+        function addCars() {
+            var cars = {
+                mark: document.getElementById("markAdd").value,
+                model: document.getElementById("modelAdd").value,
+                money: document.getElementById("moneyAdd").value,
+                year: document.getElementById("yearAdd").value,
+                photo: document.getElementById("photoAdd").value,
+                motor: document.getElementById("motorAdd").value,
+                km: document.getElementById("kmAdd").value
+            }
+
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function () {
+                showAllCars();
+            }
+            xmlHttp.open("POST", "http://localhost:8080/Rest/Cars/", false);
+            xmlHttp.setRequestHeader("Content-type", "application/json;charset=UTF-8");
+            xmlHttp.send(JSON.stringify(cars));
+            clearAdd();
+
+        }
+
+        function clearAdd() {
+            document.getElementById("markAdd").value = "";
+            document.getElementById("modelAdd").value = "";
+            document.getElementById("moneyAdd").value = "";
+            document.getElementById("yearAdd").value = "";
+            document.getElementById("photoAdd").value = "";
+            document.getElementById("motorAdd").value = "";
+            document.getElementById("kmAdd").value = "";
+        }
+
+        function clearSearch() {
+            document.getElementById("inputGroupSelect01").value = "";
+            document.getElementById("money").value = "";
+            document.getElementById("inputGroupSelect02").value = "";
+            document.getElementById("year").value = "";
+        }
+
+        function showAllCars() {
+            document.getElementById("Cars").innerHTML = "";
+
+            var xmlHttp = new XMLHttpRequest();
+            var url = "http://localhost:8080/Rest/Cars?";
+            url += "&mark=" + document.getElementById("inputGroupSelect01").value;
+            url += "&money=" + document.getElementById("money").value;
+            url += "&model=" + document.getElementById("inputGroupSelect02").value;
+            url += "&year=" + document.getElementById("year").value;
+            xmlHttp.open("GET", url, false);
+            xmlHttp.setRequestHeader('Content-type', 'application/json');
+            xmlHttp.send(null);
+
+            var list = JSON.parse(xmlHttp.responseText);
+
+            var carsPanelRest = document.getElementById("Cars");
+
+            var carCards =
+                "<div id=\"CarCard\">\n" +
+                "            <a href='/aboutCar?id=:id'>" +
+                "                <img src=\"../Images/:photo\">" +
+                "            </a>\n" +
+                "            <h4>:money AZN</h4>\n" +
+                "            <div id=\"AboutCar\">\n" +
+                "                <h1>:mark :model</h1>\n" +
+                "                <h2>:year il - :motor L - :km km</h2>\n" +
+                "            </div>\n" +
+                "        </div>";
+
+            for (var i = 0; i < list.length; i++) {
+                carsPanelRest.innerHTML = carsPanelRest.innerHTML + carCards.replaceAll(":photo", list[i].photo)
+                    .replaceAll(":money", list[i].money).replaceAll(":mark", list[i].mark)
+                    .replaceAll(":model", list[i].model).replaceAll(":year", list[i].year)
+                    .replaceAll(":motor", list[i].motor).replaceAll(":km", list[i].km)
+                    .replaceAll(":id", list[i].id);
+            }
+            clearSearch();
+        }
+
+
+    </script>
+
+
+</head>
+<body>
+
+<header>
+    <div class="head">
+        <a id="logoButton" href="/"><img src="Images/Turbo_az.png"></a>
+    </div>
+
+    <div class="HomeButtons">
+        <button id="ButtonOne">Bütün elanlar</button>
+        <button>Avtosalonlar</button>
+        <button>Mağazalar və şirkətlər</button>
+        <button>Ehtiyat hissələri və aksesuarları</button>
+        <button id="ButtonAdd" data-bs-toggle="modal" data-bs-target="#addPanel"><img src="../Images/Add.svg"
+                                                                                      class="AddIcon">Elan yerləşdir
+        </button>
+    </div>
+</header>
+
+<form id="search" method="get" action="/index">
+    <div class="searchButtonsOne">
+        <div class="dropdown searchButtons">
+            <select class="custom-select dropdownMenuButton1" id="inputGroupSelect01" name="mark">
+                <option selected value="">Butun markalar</option>
+                <option value="Bmw">Bmw</option>
+                <option value="Mercedes">Mercedes</option>
+                <option value="Land Rover">Land Rover</option>
+                <option value="Tayota">Tayota</option>
+                <option value="Porshe">Porshe</option>
+                <option value="Buqatti">Buqatti</option>
+                <option value="Shevralet">Shevralet</option>
+                <option value="McLaren">McLaren</option>
+            </select>
+        </div>
+        <div class="money">
+            <label>Qiymet</label>
+        </div>
+        <div class="dropdown searchButtons">
+            <button class="btn btn-light dropdown-toggle dropdownMenuButton3" type="button" id="azn"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                AZN
+            </button>
+            <ul class="dropdown-menu dropMoney" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="#">AZN</a></li>
+                <li><a class="dropdown-item" href="#">USD</a></li>
+                <li><a class="dropdown-item" href="#">EUR.</a></li>
+            </ul>
+        </div>
+        <input type="text" class="minMoney" id="money" placeholder="min." name="money">
+        <input type="text" class="maksMoney" placeholder="maks.">
+        <label class="creditBox">Kredit
+            <input type="checkbox" class="checkboxCredit">
+        </label>
+        <div class="dropdown searchButtons">
+            <button class="btn btn-light dropdown-toggle dropdownMenuButton4" type="button" id="city"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                Butun seherler
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="#">Butun seherler</a></li>
+                <li><a class="dropdown-item" href="#">Baki</a></li>
+                <li><a class="dropdown-item" href="#">Abseron</a></li>
+                <li><a class="dropdown-item" href="#">Sumqayit</a></li>
+                <li><a class="dropdown-item" href="#">Celilabad</a></li>
+                <li><a class="dropdown-item" href="#">Salyan</a></li>
+                <li><a class="dropdown-item" href="#">Bilesuvar</a></li>
+                <li><a class="dropdown-item" href="#">Masalli</a></li>
+                <li><a class="dropdown-item" href="#">Yardimli</a></li>
+                <li><a class="dropdown-item" href="#">Lenkaran</a></li>
+                <li><a class="dropdown-item" href="#">Lerik</a></li>
+            </ul>
+        </div>
+        <button type="button" id="searchButton" onclick="showAllCars()">Axtar</button>
+    </div>
+
+    <div class="searchButtonsTwo">
+        <div class="dropdown searchButtons">
+            <select class="custom-select dropdownMenuButton2" id="inputGroupSelect02" name="model">
+                <option selected value="">Butun modeller</option>
+                <option value="X6">X6</option>
+                <option value="Mercedes">Mercedes</option>
+                <option value="Land Rover">Land Rover</option>
+            </select>
+            <!--            <input class="dropdownMenuButton2" id="model" type="text" name="model" placeholder="Butun modeller">-->
+            <!--            <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton2"-->
+            <!--                    data-bs-toggle="dropdown" aria-expanded="false" name="model">-->
+            <!--                Butun modeller-->
+            <!--            </button>-->
+            <!--            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">-->
+            <!--                <li><a class="dropdown-item" href="#">Butun modeller</a></li>-->
+            <!--            </ul>-->
+        </div>
+        <input type="text" class="year" id="year" placeholder="Buraxılış ili" name="year">
+        <input type="text" class="minMoney" placeholder="min.">
+        <input type="text" class="maksMoney" placeholder="maks.">
+        <label class="barterBox">Barter
+            <input type="checkbox" class="checkboxBarter">
+        </label>
+        <div class="dropdown searchButtons">
+            <button class="btn btn-light dropdown-toggle dropdownMenuButton5" type="button" id="region"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                Butun rayonlar
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="#">Butun rayonlar</a></li>
+                <li><a class="dropdown-item" href="#">Baki</a></li>
+                <li><a class="dropdown-item" href="#">Abseron</a></li>
+                <li><a class="dropdown-item" href="#">Sumqayit</a></li>
+                <li><a class="dropdown-item" href="#">Celilabad</a></li>
+                <li><a class="dropdown-item" href="#">Salyan</a></li>
+                <li><a class="dropdown-item" href="#">Bilesuvar</a></li>
+                <li><a class="dropdown-item" href="#">Masalli</a></li>
+                <li><a class="dropdown-item" href="#">Yardimli</a></li>
+                <li><a class="dropdown-item" href="#">Lenkaran</a></li>
+                <li><a class="dropdown-item" href="#">Lerik</a></li>
+            </ul>
+        </div>
+        <button id="searchButtonOther">Etrafli</button>
+    </div>
+</form>
+
+<div>
+    <div class="modal" tabindex="-1" id="addPanel">
+        <div class="modal-dialog">
+            <div class="modal-content" id="addModal">
+                <div class="modal-header">
+                    <h5 class="modal-title">Elan elave edin</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <label>Markasi:</label>
+                        <label for="markAdd"></label><input type="text" name="markAdd" id="markAdd"
+                                                            placeholder="Markasi" required>
+                        <br><br>
+
+                        <label>Modeli:</label>
+                        <label for="modelAdd"></label><input type="text" name="modelAdd" id="modelAdd"
+                                                             placeholder="Modeli" required>
+                        <br><br>
+
+                        <label>Qiymeti:</label>
+                        <label for="moneyAdd"></label><input type="number" name="moneyAdd" id="moneyAdd"
+                                                             placeholder="Qiymeti" required>
+                        <br><br>
+
+                        <label>ili:</label>
+                        <label for="yearAdd"></label><input type="number" name="yearAdd" id="yearAdd" placeholder="ili"
+                                                            required>
+                        <br><br>
+
+                        <label>Sekili:</label>
+                        <label for="photoAdd"></label><input type="text" name="photoAdd" id="photoAdd"
+                                                             placeholder="Sekili" required>
+                        <br><br>
+
+                        <label>Motoru:</label>
+                        <label for="motorAdd"></label><input type="number" name="motorAdd" id="motorAdd"
+                                                             placeholder="Motor" required>
+                        <br><br>
+
+                        <label>Km:</label>
+                        <label for="kmAdd"></label><input type="number" name="kmAdd" id="kmAdd" placeholder="Km"
+                                                          required>
+                        <br><br>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="addBtn">
+                        <button name="Add" class="btn btn-success addButton" onclick="addCars()"
+                                data-bs-dismiss="modal">Add
+                        </button>
+                        <button name="Close" class="btn btn-success closeBtn addButton" data-bs-dismiss="modal">Close
+                        </button>
+                        <br><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="Cars">
+
+</div>
+<script>
+    showAllCars();
+</script>
+
+
+</body>
+</html>

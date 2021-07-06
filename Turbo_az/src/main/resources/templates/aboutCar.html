@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>aboutCar</title>
+    <link rel="stylesheet" href="../index.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+            crossorigin="anonymous"></script>
+    <script>
+        function addCars() {
+            var cars = {
+                mark: document.getElementById("markAdd").value,
+                model: document.getElementById("modelAdd").value,
+                money: document.getElementById("moneyAdd").value,
+                year: document.getElementById("yearAdd").value,
+                photo: document.getElementById("photoAdd").value,
+                motor: document.getElementById("motorAdd").value,
+                km: document.getElementById("kmAdd").value
+            }
+
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open("POST", "http://localhost:8080/Rest/Cars/", false);
+            xmlHttp.setRequestHeader("Content-type", "application/json;charset=UTF-8");
+            xmlHttp.send(JSON.stringify(cars));
+            clearAdd();
+
+        }
+
+        function updateCars() {
+            var cars = {
+                id: document.getElementById("idUpdate").value,
+                mark: document.getElementById("markUpdate").value,
+                model: document.getElementById("modelUpdate").value,
+                money: document.getElementById("moneyUpdate").value,
+                year: document.getElementById("yearUpdate").value,
+                photo: document.getElementById("photoUpdate").value,
+                motor: document.getElementById("motorUpdate").value,
+                km: document.getElementById("kmUpdate").value
+            }
+
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open("put", "http://localhost:8080/Rest/Cars/", false);
+            xmlHttp.setRequestHeader("Content-type", "application/json;charset=UTF-8");
+            xmlHttp.send(JSON.stringify(cars));
+            // clearUpdate();
+        }
+
+        function fillSelectedItemForUpdate(id, mark, model, money, year, photo, motor, km) {
+            document.getElementById("idUpdate").value = id;
+            document.getElementById("markUpdate").value = mark;
+            document.getElementById("modelUpdate").value = model;
+            document.getElementById("moneyUpdate").value = money;
+            document.getElementById("yearUpdate").value = year;
+            document.getElementById("photoUpdate").value = photo;
+            document.getElementById("motorUpdate").value = motor;
+            document.getElementById("kmUpdate").value = km;
+        }
+
+        function fillSelectedItemForDelete(id) {
+            document.getElementById("idDelete").value = id;
+        }
+
+        function clearAdd() {
+            document.getElementById("markAdd").value = "";
+            document.getElementById("modelAdd").value = "";
+            document.getElementById("moneyAdd").value = "";
+            document.getElementById("yearAdd").value = "";
+            document.getElementById("photoAdd").value = "";
+            document.getElementById("motorAdd").value = "";
+            document.getElementById("kmAdd").value = "";
+        }
+
+        function showAboutCar() {
+            var id = document.getElementById("idSearch").value;
+
+            var xmlHttp = new XMLHttpRequest();
+            var url = "http://localhost:8080/Rest/Cars/" + id;
+            xmlHttp.open("GET", url, false);
+            xmlHttp.setRequestHeader('Content-type', 'application/json');
+            xmlHttp.send(JSON.stringify(id));
+
+            var list = JSON.parse(xmlHttp.responseText);
+
+            var markAndModelAbout = document.getElementById("carList");
+            var getPhoto = document.getElementById("photoCar");
+            var aboutCar = document.getElementById("rightAbout");
+            var deleteAndUpdate = document.getElementById("UpdateAndDelete");
+            var deleteAboutText = document.getElementById("deleteAbout");
+
+            var photo = "<img src=\"../Images/:photo\" id=\"photoAbout\">"
+
+            var markAndModelAndMoney =
+                "        <label id=\"moneyAbout\">:money AZN</label>\n" +
+                "        <label id=\"markAndModelAndMotorAndYear\">:mark :model, :motor L, :year il,</label><br>\n" +
+                "        <label id=\"carKm\">:km km</label>";
+
+            var carAboutList =
+                "                <label class=\"borderStyle\">Bakı</label><br>\n" +
+                "                <label class=\"borderStyle\">:mark</label><br>\n" +
+                "                <label class=\"borderStyle\">:model</label><br>\n" +
+                "                <label class=\"borderStyle\">:year</label><br>\n" +
+                "                <label class=\"borderStyle\">Cip</label><br>\n" +
+                "                <label class=\"borderStyle\">Bilinmir</label><br>\n" +
+                "                <label class=\"borderStyle\">:motor L</label><br>\n" +
+                "                <label class=\"borderStyle\">500 a.g.</label><br>\n" +
+                "                <label class=\"borderStyle\">Benzin</label><br>\n" +
+                "                <label class=\"borderStyle\">:km km</label><br>\n" +
+                "                <label class=\"borderStyle\">Avtomat</label><br>\n" +
+                "                <label class=\"borderStyle\">Tam</label><br>\n" +
+                "                <label class=\"borderStyle\">Xeyir</label>\n" +
+                "                <label class=\"borderStyle\">:money AZN</label>";
+
+            var updateAndDeleteButtons =
+                "<button id=\"update\" data-bs-toggle=\"modal\" data-bs-target=\"#updatePanel\" " +
+                "       onclick=\"fillSelectedItemForUpdate(:id,':mark',':model', :money, :year, ':photo', :motor, :km )\">" +
+                "               <img src=\"../Images/update.svg\">Update</button>\n"+
+
+                "<button data-bs-toggle=\"modal\" data-bs-target=\"#deletePanel\" id=\"deleteButton\" onclick='fillSelectedItemForDelete(:id)'><img src=\"../Images/delete.svg\">Delete</button>";
+
+            var deleteText =
+                " <label id=\"delete\" class=\"delete\"> :mark :model mashinini silmek istediyinize eminmisiniz? </label>\n";
+
+            getPhoto.innerHTML += photo.replaceAll(":photo", list.photo);
+
+            markAndModelAbout.innerHTML += markAndModelAndMoney.replaceAll(":mark", list.mark).replaceAll(":model", list.model)
+                .replaceAll(":year", list.year).replaceAll(":money", list.money).replaceAll(":motor", list.motor)
+                .replaceAll(":km", list.km);
+
+            aboutCar.innerHTML += carAboutList.replaceAll(":mark", list.mark).replaceAll(":model", list.model)
+                .replaceAll(":year", list.year).replaceAll(":money", list.money).replaceAll(":motor", list.motor)
+                .replaceAll(":km", list.km).replaceAll(":id", list.id).replaceAll(":photo", list.photo);
+
+            deleteAndUpdate.innerHTML += updateAndDeleteButtons.replaceAll(":id", list.id).replaceAll(":mark", list.mark)
+                .replaceAll(":model", list.model).replaceAll(":money", list.money).replaceAll(":year", list.year)
+                .replaceAll(":photo", list.photo).replaceAll(":motor", list.motor).replaceAll(":km", list.km);
+
+            deleteAboutText.innerHTML += deleteText.replaceAll(":mark", list.mark).replaceAll(":model", list.model);
+        }
+
+        function deleteCars(){
+            var cars = {
+                id:document.getElementById("idDelete").value
+            }
+
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open("delete", "http://localhost:8080/Rest/Cars/"+cars.id, false);
+            xmlHttp.setRequestHeader("Content-type", "application/json;charset=UTF-8");
+            xmlHttp.send(JSON.stringify(cars));
+        }
+    </script>
+</head>
+<body>
+<header>
+    <div class="head">
+        <a id="logoButton" href="/"><img src="Images/Turbo_az.png"></a>
+    </div>
+
+    <div class="HomeButtons">
+        <button id="ButtonOne">Bütün elanlar</button>
+        <button>Avtosalonlar</button>
+        <button>Mağazalar və şirkətlər</button>
+        <button>Ehtiyat hissələri və aksesuarları</button>
+        <button id="ButtonAdd" data-bs-toggle="modal" data-bs-target="#addPanel"><img src="../Images/Add.svg"
+                                                                                      class="AddIcon">Elan yerləşdir
+        </button>
+    </div>
+</header>
+
+<div>
+    <div class="modal" tabindex="-1" id="addPanel">
+        <div class="modal-dialog">
+            <div class="modal-content" id="addModal">
+                <div class="modal-header">
+                    <h5 class="modal-title">Elan elave edin</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <label>Markası:</label>
+                        <label for="markAdd"></label><input type="text" name="markAdd" id="markAdd" class="addAndUpdate"
+                                                            placeholder="Markası" required>
+                        <br><br>
+
+                        <label>Modeli:</label>
+                        <label for="modelAdd"></label><input type="text" name="modelAdd" id="modelAdd" class="addAndUpdate"
+                                                             placeholder="Modeli" required>
+                        <br><br>
+
+                        <label>Qiyməti:</label>
+                        <label for="moneyAdd"></label><input type="number" name="moneyAdd" id="moneyAdd" class="addAndUpdate"
+                                                             placeholder="Qiyməti" required>
+                        <br><br>
+
+                        <label>ili:</label>
+                        <label for="yearAdd"></label><input type="number" name="yearAdd" id="yearAdd" placeholder="ili"
+                                                            required class="addAndUpdate">
+                        <br><br>
+
+                        <label>Şəkili:</label>
+                        <label for="photoAdd"></label><input type="text" name="photoAdd" id="photoAdd" class="addAndUpdate"
+                                                             placeholder="Şəkili" required>
+                        <br><br>
+
+                        <label>Motor:</label>
+                        <label for="motorAdd"></label><input type="number" name="motorAdd" id="motorAdd" class="addAndUpdate"
+                                                             placeholder="Motor" required>
+                        <br><br>
+
+                        <label>Km:</label>
+                        <label for="kmAdd"></label><input type="number" name="kmAdd" id="kmAdd" placeholder="Km" class="addAndUpdate"
+                                                          required>
+                        <br><br>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="addBtn">
+                        <button name="Add" class="btn btn-success addButton" onclick="addCars()"
+                                data-bs-dismiss="modal">Add
+                        </button>
+                        <button name="Close" class="btn btn-success closeBtn addButton" data-bs-dismiss="modal">Close
+                        </button>
+                        <br><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="aboutCars">
+    <div id="photoCar">
+
+    </div>
+    <div id="carList">
+
+    </div>
+
+    <div id="leftArea">
+        <div id="callList">
+            <img src="../Images/call.svg" id="callIcon">
+            <label id="numberCall1">(055)-424-17-70</label><br>
+            <label id="numberCall2">(055)-633-33-05</label>
+            <label id="customerName">Allahshukur</label>
+        </div>
+    </div>
+    <div id="rightArea">
+        <div id="leftOfRight">
+            <div id="leftAbout">
+                <label class="borderStyle">Şəhər</label><br>
+                <label class="borderStyle">Marka</label><br>
+                <label class="borderStyle">Model</label><br>
+                <label class="borderStyle">Buraxılış ili</label><br>
+                <label class="borderStyle">Ban növü</label><br>
+                <label class="borderStyle">Rəng</label><br>
+                <label class="borderStyle">Mühərrik</label><br>
+                <label class="borderStyle">Mühərrikin gücü</label><br>
+                <label class="borderStyle">Yanacaq növü</label><br>
+                <label class="borderStyle">Yürüş</label><br>
+                <label class="borderStyle">Sürətlər qutusu</label><br>
+                <label class="borderStyle">Ötürücü</label><br>
+                <label class="borderStyle">Yeni</label>
+                <label class="borderStyle">Qiymət</label>
+
+            </div>
+            <input type="hidden" name="id" id="idSearch" th:value="${param.id}"/>
+            <div id="rightAbout">
+
+            </div>
+
+        </div>
+
+        <div id="rightFromRightArea">
+
+            <ul id="ulPart">
+                <li class="ulSize">Yungul lehimli diskler</li>
+                <li class="ulSize">ABS</li>
+                <li class="ulSize">Lyuk</li>
+                <li class="ulSize">Yagis sensoru</li>
+                <li class="ulSize">Merkezi qapanma</li>
+                <li class="ulSize">Park radari</li>
+                <li class="ulSize">Kondisioner</li>
+                <li class="ulSize">Oturacaqlarin isidilmesi</li>
+                <li class="ulSize">Deri salon</li>
+                <li class="ulSize">Ksenon lampalar</li>
+                <li class="ulSize">Arxa goruntu kamerasi</li>
+                <li class="ulSize">Yan perdeler</li>
+                <li class="ulSize">Oturacaqlarin ventiliyasiyasi</li>
+            </ul>
+
+            <div id="UpdateAndDelete">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div>
+    <div class="modal" tabindex="-1" id="deletePanel">
+        <div class="modal-dialog">
+            <div class="modal-content" id="deleteModal">
+                <div class="modal-header">
+                    <h5 class="modal-title-delete">Elanı silin.</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body-delete">
+                    <div>
+                        <input type="hidden" name="idDelete" id="idDelete">
+                        <span id="deleteAbout">
+                            <script>
+                                 showAboutCar();
+                            </script>
+                        </span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="addBtn">
+                        <button name="delete" class="btn btn-success addButton" onclick="deleteCars()"
+                                data-bs-dismiss="modal">Delete
+                        </button>
+                        <button name="Close" class="btn btn-success closeBtn addButton" data-bs-dismiss="modal">Close
+                        </button>
+                        <br><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <div class="modal" tabindex="-1" id="updatePanel">
+        <div class="modal-dialog">
+            <div class="modal-content" id="updateModal">
+                <div class="modal-header">
+                    <h5 class="modal-title-update">Elanda düzəlişlər edin.</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <input type="hidden" name="idUpdate" id="idUpdate">
+
+                        <label>Markası:</label>
+                        <label for="markUpdate"></label><input type="text" name="markUpdate" id="markUpdate" class="addAndUpdate">
+                        <br><br>
+
+                        <label>Modeli:</label>
+                        <label for="modelUpdate"></label><input type="text" name="modelUpdate" id="modelUpdate" class="addAndUpdate">
+                        <br><br>
+
+                        <label>Qiyməti:</label>
+                        <label for="moneyUpdate"></label><input type="number" name="moneyUpdate" id="moneyUpdate" class="addAndUpdate">
+                        <br><br>
+
+                        <label>ili:</label>
+                        <label for="yearUpdate"></label><input type="number" name="yearUpdate" id="yearUpdate" class="addAndUpdate">
+                        <br><br>
+
+                        <label>Şəkili:</label>
+                        <label for="photoUpdate"></label><input type="text" name="photoUpdate" id="photoUpdate" class="addAndUpdate">
+                        <br><br>
+
+                        <label>Motor:</label>
+                        <label for="motorUpdate"></label><input type="number" name="motorUpdate" id="motorUpdate" class="addAndUpdate">
+                        <br><br>
+
+                        <label>Km:</label>
+                        <label for="kmUpdate"></label><input type="number" name="kmUpdate" id="kmUpdate" class="addAndUpdate">
+                        <br><br>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="addBtn">
+                        <button name="Add" class="btn btn-success addButton" onclick="updateCars()"
+                                data-bs-dismiss="modal">Update
+                        </button>
+                        <button name="Close" class="btn btn-success closeBtn addButton" data-bs-dismiss="modal">Close
+                        </button>
+                        <br><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
