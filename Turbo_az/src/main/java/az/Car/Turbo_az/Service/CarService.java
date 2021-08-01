@@ -64,7 +64,34 @@ public class CarService {
         return result;
     }
 
-    public static boolean isAllEmpty(Object... objects) {
+    public List<CarDto> findAllFavorite(String mark) {
+
+        List<CarEntity> list;
+
+        if (isAllEmpty(mark)) {
+            list = carRepository.findAll();
+        } else
+            list = carRepository.findByMark(mark);
+
+        List<CarDto> result = new ArrayList<>();
+
+        for (CarEntity carE : list) {
+            CarDto carDto = new CarDto()
+                    .setId(carE.getId())
+                    .setMark(carE.getMark())
+                    .setMoney(carE.getMoney())
+                    .setModel(carE.getModel())
+                    .setYear(carE.getYear())
+                    .setKm(carE.getKm())
+                    .setMotor(carE.getMotor())
+                    .setPhoto(carE.getPhoto())
+                    .setFavorite(carE.getFavorite());
+            result.add(carDto);
+        }
+        return result;
+    }
+
+    public static boolean isAllEmpty(Object... objects) { // Objects massivi demekdir.
         for (Object obj : objects) {
             if (obj != null && !obj.toString().isEmpty()) {
                 return false;

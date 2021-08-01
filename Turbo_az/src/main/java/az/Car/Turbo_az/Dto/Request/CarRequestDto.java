@@ -14,6 +14,7 @@ public class CarRequestDto {
     private String photo;
     private Double motor;
     private Long km;
+    private String favorite;
 
     public Integer getId() {
         return id;
@@ -87,6 +88,15 @@ public class CarRequestDto {
         return this;
     }
 
+    public String getFavorite() {
+        return favorite;
+    }
+
+    public CarRequestDto setFavorite(String favorite) {
+        this.favorite = favorite;
+        return this;
+    }
+
     public CarDto toDto(){
         return new CarDto()
                 .setId(this.getId())
@@ -96,7 +106,8 @@ public class CarRequestDto {
                 .setYear(this.getYear())
                 .setPhoto(this.getPhoto())
                 .setMotor(this.getMotor())
-                .setKm(this.getKm());
+                .setKm(this.getKm())
+                .setFavorite(this.getFavorite());
     }
 
     @Override
@@ -109,6 +120,8 @@ public class CarRequestDto {
                 ", photo='" + photo + '\'' +
                 ", motor=" + motor +
                 ", km=" + km +
+                ", favorite=" + favorite + '\'' +
                 '}';
     }
+
 }

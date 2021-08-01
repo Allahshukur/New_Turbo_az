@@ -19,7 +19,8 @@
                 year: document.getElementById("yearAdd").value,
                 photo: document.getElementById("photoAdd").value,
                 motor: document.getElementById("motorAdd").value,
-                km: document.getElementById("kmAdd").value
+                km: document.getElementById("kmAdd").value,
+                favorite: document.getElementById("favAdd").value
             }
 
             var xmlHttp = new XMLHttpRequest();
@@ -39,7 +40,8 @@
                 year: document.getElementById("yearUpdate").value,
                 photo: document.getElementById("photoUpdate").value,
                 motor: document.getElementById("motorUpdate").value,
-                km: document.getElementById("kmUpdate").value
+                km: document.getElementById("kmUpdate").value,
+                favorite: document.getElementById("favUpdate").value
             }
 
             var xmlHttp = new XMLHttpRequest();
@@ -49,7 +51,7 @@
             // clearUpdate();
         }
 
-        function fillSelectedItemForUpdate(id, mark, model, money, year, photo, motor, km) {
+        function fillSelectedItemForUpdate(id, mark, model, money, year, photo, motor, km, favorite) {
             document.getElementById("idUpdate").value = id;
             document.getElementById("markUpdate").value = mark;
             document.getElementById("modelUpdate").value = model;
@@ -58,6 +60,7 @@
             document.getElementById("photoUpdate").value = photo;
             document.getElementById("motorUpdate").value = motor;
             document.getElementById("kmUpdate").value = km;
+            document.getElementById("favUpdate").value=favorite;
         }
 
         function fillSelectedItemForDelete(id) {
@@ -116,7 +119,7 @@
 
             var updateAndDeleteButtons =
                 "<button id=\"update\" data-bs-toggle=\"modal\" data-bs-target=\"#updatePanel\" " +
-                "       onclick=\"fillSelectedItemForUpdate(:id,':mark',':model', :money, :year, ':photo', :motor, :km )\">" +
+                "       onclick=\"fillSelectedItemForUpdate(:id,':mark',':model', :money, :year, ':photo', :motor, :km, ':favorite' )\">" +
                 "               <img src=\"../Images/update.svg\">Update</button>\n"+
 
                 "<button data-bs-toggle=\"modal\" data-bs-target=\"#deletePanel\" id=\"deleteButton\" onclick='fillSelectedItemForDelete(:id)'><img src=\"../Images/delete.svg\">Delete</button>";
@@ -136,7 +139,7 @@
 
             deleteAndUpdate.innerHTML += updateAndDeleteButtons.replaceAll(":id", list.id).replaceAll(":mark", list.mark)
                 .replaceAll(":model", list.model).replaceAll(":money", list.money).replaceAll(":year", list.year)
-                .replaceAll(":photo", list.photo).replaceAll(":motor", list.motor).replaceAll(":km", list.km);
+                .replaceAll(":photo", list.photo).replaceAll(":motor", list.motor).replaceAll(":km", list.km).replaceAll(":favorite", list.favorite);
 
             deleteAboutText.innerHTML += deleteText.replaceAll(":mark", list.mark).replaceAll(":model", list.model);
         }
@@ -160,8 +163,8 @@
     </div>
 
     <div class="HomeButtons">
-        <button id="ButtonOne">Bütün elanlar</button>
-        <button>Avtosalonlar</button>
+        <button id="ButtonOne"><a href="/" class="ButtonOne">Bütün elanlar</a></button>
+        <button id="ButtonTwo"><a href="/favorite" class="ButtonTwo">Secilmishler</a></button>
         <button>Mağazalar və şirkətlər</button>
         <button>Ehtiyat hissələri və aksesuarları</button>
         <button id="ButtonAdd" data-bs-toggle="modal" data-bs-target="#addPanel"><img src="../Images/Add.svg"
@@ -214,11 +217,14 @@
                         <label for="kmAdd"></label><input type="number" name="kmAdd" id="kmAdd" placeholder="Km" class="addAndUpdate"
                                                           required>
                         <br><br>
+
+                        <label for="favAdd"></label><input type="hidden" name="favAdd" id="favAdd" class="addAndUpdate" value="NO">
+                        <br><br>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <div class="addBtn">
-                        <button name="Add" class="btn btn-success addButton" onclick="addCars()"
+                        <button name="Add" class="btn btn-success addButton" onclick="addCars()" id="buttonAddd"
                                 data-bs-dismiss="modal">Add
                         </button>
                         <button name="Close" class="btn btn-success closeBtn addButton" data-bs-dismiss="modal">Close
@@ -294,6 +300,32 @@
             <div id="UpdateAndDelete">
 
             </div>
+
+            <div>
+                <script>
+                    function defultAddText(){
+                        document.getElementById("text").value="";
+                        document.getElementById("text").value=document.getElementById("default").value;
+                    }
+
+                    function addText(){
+                        document.getElementById("text").value="";
+                        document.getElementById("text").value=document.getElementById("check").value;
+                    }
+                </script>
+                <div>
+                    <input type="hidden" class="default" id="default" value="Unchecked">
+                    <button type="button" class="unChecked" onclick="defultAddText()">UnChecked</button>
+                </div>
+
+                <div>
+                    <input type="hidden" class="check" id="check" value="Checked">
+                    <button type="button" class="checked" id="checked" onclick="addText()">Checked</button>
+                </div>
+
+                <input type="text" class="checkedText" id="text" value="">
+
+            </div>
         </div>
     </div>
 </div>
@@ -320,7 +352,7 @@
                 <div class="modal-footer">
                     <div class="addBtn">
                         <button name="delete" class="btn btn-success addButton" onclick="deleteCars()"
-                                data-bs-dismiss="modal">Delete
+                                data-bs-dismiss="modal" id="buttonDelete">Delete
                         </button>
                         <button name="Close" class="btn btn-success closeBtn addButton" data-bs-dismiss="modal">Close
                         </button>
@@ -371,12 +403,75 @@
                         <label>Km:</label>
                         <label for="kmUpdate"></label><input type="number" name="kmUpdate" id="kmUpdate" class="addAndUpdate">
                         <br><br>
+
+                        <label for="favUpdate"></label><input type="text" name="favUpdate" id="favUpdate" class="addAndUpdate">
+                        <br><br>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <div class="addBtn">
                         <button name="Add" class="btn btn-success addButton" onclick="updateCars()"
-                                data-bs-dismiss="modal">Update
+                                data-bs-dismiss="modal" id="buttonUpdate">Update
+                        </button>
+                        <button name="Close" class="btn btn-success closeBtn addButton" data-bs-dismiss="modal">Close
+                        </button>
+                        <br><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <div class="modal" tabindex="-1" id="favoriteUpdatePanel">
+        <div class="modal-dialog">
+            <div class="modal-content" id="favoriteUpdateModal">
+                <div class="modal-header">
+                    <h5 class="modal-title-update">Elanda düzəlişlər edin.</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <input type="hidden" name="idUpdate" id="favoriteIdUpdate">
+
+                        <label>Markası:</label>
+                        <label for="favoriteMarkUpdate"></label><input type="text" name="favoriteMarkUpdate" id="favoriteMarkUpdate" class="addAndUpdate">
+                        <br><br>
+
+                        <label>Modeli:</label>
+                        <label for="favoriteModelUpdate"></label><input type="text" name="favoriteModelUpdate" id="favoriteModelUpdate" class="addAndUpdate">
+                        <br><br>
+
+                        <label>Qiyməti:</label>
+                        <label for="favoriteMoneyUpdate"></label><input type="number" name="favoriteMoneyUpdate" id="favoriteMoneyUpdate" class="addAndUpdate">
+                        <br><br>
+
+                        <label>ili:</label>
+                        <label for="favoriteYearUpdate"></label><input type="number" name="favoriteYearUpdate" id="favoriteYearUpdate" class="addAndUpdate">
+                        <br><br>
+
+                        <label>Şəkili:</label>
+                        <label for="favoritePhotoUpdate"></label><input type="text" name="favoritePhotoUpdate" id="favoritePhotoUpdate" class="addAndUpdate">
+                        <br><br>
+
+                        <label>Motor:</label>
+                        <label for="favoriteMotorUpdate"></label><input type="number" name="favoriteMotorUpdate" id="favoriteMotorUpdate" class="addAndUpdate">
+                        <br><br>
+
+                        <label>Km:</label>
+                        <label for="favoriteKmUpdate"></label><input type="number" name="favoriteKmUpdate" id="favoriteKmUpdate" class="addAndUpdate">
+                        <br><br>
+
+                        <label>Favorite:</label>
+                        <label for="favoriteUpdate"></label><input type="text" name="favoriteUpdate" id="favoriteUpdate" class="addAndUpdate">
+                        <br><br>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="addBtn">
+                        <button name="Update" class="btn btn-success addButton" onclick="updateCars()"
+                                data-bs-dismiss="modal" id="favoriteButtonUpdate">Update
                         </button>
                         <button name="Close" class="btn btn-success closeBtn addButton" data-bs-dismiss="modal">Close
                         </button>

@@ -14,6 +14,7 @@ public class CarDto {
     private String photo;
     private Double motor;
     private Long km;
+    private String favorite;
 
     public Integer getId() {
         return id;
@@ -87,6 +88,15 @@ public class CarDto {
         return this;
     }
 
+    public String getFavorite() {
+        return favorite;
+    }
+
+    public CarDto setFavorite(String favorite) {
+        this.favorite = favorite;
+        return this;
+    }
+
     public CarEntity toEntity() {
         return new CarEntity()
                 .setId(this.getId())
@@ -96,8 +106,10 @@ public class CarDto {
                 .setYear(this.getYear())
                 .setPhoto(this.getPhoto())
                 .setMotor(this.getMotor())
-                .setKm(this.getKm());
+                .setKm(this.getKm())
+                .setFavorite(this.getFavorite());
     }
+
 
     public static CarDto instance(CarEntity carEntity) {
         CarDto carDto = new CarDto();
@@ -109,6 +121,7 @@ public class CarDto {
         carDto.setPhoto(carEntity.getPhoto());
         carDto.setMotor(carEntity.getMotor());
         carDto.setKm(carEntity.getKm());
+        carDto.setFavorite(carEntity.getFavorite());
         return carDto;
     }
 }

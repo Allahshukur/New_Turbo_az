@@ -11,4 +11,6 @@ import java.util.List;
 public interface CarRepository extends JpaRepository<CarEntity,Integer> {
 
     List<CarEntity> findByMarkOrMoneyOrModelOrYear(String mark, BigDecimal money, String model, Integer year);
+
+    List<CarEntity> findByMark(String mark);
 }

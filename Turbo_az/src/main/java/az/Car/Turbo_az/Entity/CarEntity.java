@@ -1,6 +1,6 @@
 package az.Car.Turbo_az.Entity;
 
-import org.thymeleaf.expression.Dates;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -19,6 +19,7 @@ public class CarEntity {
     private BigDecimal money;
     private Double motor;
     private Long km;
+    private String favorite;
 
     public Integer getId() {
         return id;
@@ -91,4 +92,14 @@ public class CarEntity {
         this.km = km;
         return this;
     }
+
+    public String getFavorite() {
+        return favorite;
+    }
+
+    public CarEntity setFavorite(String favorite) {
+        this.favorite = favorite;
+        return this;
+    }
+
 }

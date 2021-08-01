@@ -14,6 +14,7 @@ public class CarResponseDto {
     private String photo;
     private Double motor;
     private Long km;
+    private String favorite;
 
     public Integer getId() {
         return id;
@@ -87,7 +88,16 @@ public class CarResponseDto {
         return this;
     }
 
-    public static CarResponseDto instance(CarDto carDto){
+    public String getFavorite() {
+        return favorite;
+    }
+
+    public CarResponseDto setFavorite(String favorite) {
+        this.favorite = favorite;
+        return this;
+    }
+
+    public static CarResponseDto instance(CarDto carDto) {
         CarResponseDto carResponseDto = new CarResponseDto();
         carResponseDto.setId(carDto.getId());
         carResponseDto.setMark(carDto.getMark());
@@ -97,6 +107,26 @@ public class CarResponseDto {
         carResponseDto.setPhoto(carDto.getPhoto());
         carResponseDto.setMotor(carDto.getMotor());
         carResponseDto.setKm(carDto.getKm());
+        carResponseDto.setFavorite(carDto.getFavorite());
         return carResponseDto;
+    }
+
+    public static CarResponseDto instanceFavorite(CarDto carDto) {
+        if (carDto.getFavorite() != null) {
+            CarResponseDto carResponseDto = new CarResponseDto();
+            if (carDto.getFavorite().equals("checked")) {
+                carResponseDto.setId(carDto.getId());
+                carResponseDto.setMark(carDto.getMark());
+                carResponseDto.setModel(carDto.getModel());
+                carResponseDto.setMoney(carDto.getMoney());
+                carResponseDto.setYear(carDto.getYear());
+                carResponseDto.setPhoto(carDto.getPhoto());
+                carResponseDto.setMotor(carDto.getMotor());
+                carResponseDto.setKm(carDto.getKm());
+                carResponseDto.setFavorite(carDto.getFavorite());
+                return carResponseDto;
+            }
+        }
+        return null;
     }
 }

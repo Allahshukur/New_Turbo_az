@@ -20,7 +20,8 @@
                 year: document.getElementById("yearAdd").value,
                 photo: document.getElementById("photoAdd").value,
                 motor: document.getElementById("motorAdd").value,
-                km: document.getElementById("kmAdd").value
+                km: document.getElementById("kmAdd").value,
+                favorite: document.getElementById("favAdd").value
             }
 
             var xmlHttp = new XMLHttpRequest();
@@ -55,7 +56,7 @@
             document.getElementById("Cars").innerHTML = "";
 
             var xmlHttp = new XMLHttpRequest();
-            var url = "http://localhost:8080/Rest/Cars?";
+            var url = "http://localhost:8080/Rest/Cars/?";
             url += "&mark=" + document.getElementById("inputGroupSelect01").value;
             url += "&money=" + document.getElementById("money").value;
             url += "&model=" + document.getElementById("inputGroupSelect02").value;
@@ -103,8 +104,8 @@
     </div>
 
     <div class="HomeButtons">
-        <button id="ButtonOne">Bütün elanlar</button>
-        <button>Avtosalonlar</button>
+        <button id="ButtonOne" ><a href="/" class="ButtonOne">Bütün elanlar</a></button>
+        <button id="ButtonTwo"><a href="/favorite" class="ButtonTwo">Secilmishler</a></button>
         <button>Mağazalar və şirkətlər</button>
         <button>Ehtiyat hissələri və aksesuarları</button>
         <button id="ButtonAdd" data-bs-toggle="modal" data-bs-target="#addPanel"><img src="../Images/Add.svg"
@@ -226,44 +227,47 @@
                 <div class="modal-body">
                     <div>
                         <label>Markasi:</label>
-                        <label for="markAdd"></label><input type="text" name="markAdd" id="markAdd"
+                        <label for="markAdd"></label><input type="text" name="markAdd" id="markAdd" class="addAndUpdate"
                                                             placeholder="Markasi" required>
                         <br><br>
 
                         <label>Modeli:</label>
-                        <label for="modelAdd"></label><input type="text" name="modelAdd" id="modelAdd"
+                        <label for="modelAdd"></label><input type="text" name="modelAdd" id="modelAdd" class="addAndUpdate"
                                                              placeholder="Modeli" required>
                         <br><br>
 
                         <label>Qiymeti:</label>
-                        <label for="moneyAdd"></label><input type="number" name="moneyAdd" id="moneyAdd"
+                        <label for="moneyAdd"></label><input type="number" name="moneyAdd" id="moneyAdd" class="addAndUpdate"
                                                              placeholder="Qiymeti" required>
                         <br><br>
 
                         <label>ili:</label>
-                        <label for="yearAdd"></label><input type="number" name="yearAdd" id="yearAdd" placeholder="ili"
+                        <label for="yearAdd"></label><input type="number" name="yearAdd" id="yearAdd" placeholder="ili" class="addAndUpdate"
                                                             required>
                         <br><br>
 
                         <label>Sekili:</label>
-                        <label for="photoAdd"></label><input type="text" name="photoAdd" id="photoAdd"
+                        <label for="photoAdd"></label><input type="text" name="photoAdd" id="photoAdd" class="addAndUpdate"
                                                              placeholder="Sekili" required>
                         <br><br>
 
                         <label>Motoru:</label>
-                        <label for="motorAdd"></label><input type="number" name="motorAdd" id="motorAdd"
+                        <label for="motorAdd"></label><input type="number" name="motorAdd" id="motorAdd" class="addAndUpdate"
                                                              placeholder="Motor" required>
                         <br><br>
 
                         <label>Km:</label>
-                        <label for="kmAdd"></label><input type="number" name="kmAdd" id="kmAdd" placeholder="Km"
+                        <label for="kmAdd"></label><input type="number" name="kmAdd" id="kmAdd" placeholder="Km" class="addAndUpdate"
                                                           required>
+                        <br><br>
+
+                        <label for="favAdd"></label><input type="text" name="favAdd" id="favAdd" class="addAndUpdate" value="NO">
                         <br><br>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <div class="addBtn">
-                        <button name="Add" class="btn btn-success addButton" onclick="addCars()"
+                        <button name="Add" class="btn btn-success addButton" onclick="addCars()" id="buttonAddd"
                                 data-bs-dismiss="modal">Add
                         </button>
                         <button name="Close" class="btn btn-success closeBtn addButton" data-bs-dismiss="modal">Close

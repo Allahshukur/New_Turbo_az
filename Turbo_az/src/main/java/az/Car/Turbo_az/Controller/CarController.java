@@ -3,8 +3,6 @@ package az.Car.Turbo_az.Controller;
 import az.Car.Turbo_az.Dto.Dto.CarDto;
 import az.Car.Turbo_az.Dto.Request.CarRequestDto;
 import az.Car.Turbo_az.Dto.Response.CarResponseDto;
-import az.Car.Turbo_az.Entity.CarEntity;
-import az.Car.Turbo_az.Respository.CarRepository;
 import az.Car.Turbo_az.Service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +20,7 @@ public class CarController {
     @Autowired
     private CarService carService;
 
-    @GetMapping()
+    @GetMapping
     public List<CarResponseDto> search(
             @RequestParam(required = false) String mark,
             @RequestParam(required = false) BigDecimal money,
@@ -51,6 +49,23 @@ public class CarController {
         return CarResponseDto.instance(carService.findById(id));
     }
 
+    @GetMapping(value = "/Favorite")
+    public List<CarResponseDto> getFavoriteCars(
+            @RequestParam(required = false) String mark) {
+
+        List<CarDto> favoriteList= carService.findAllFavorite(
+               mark
+        );
+
+        List<CarResponseDto> result = new ArrayList<>();
+
+        for (CarDto carE: favoriteList){
+            if (carE.getFavorite().equals("checked")) {
+                result.add(CarResponseDto.instanceFavorite(carE));
+            }
+        }
+        return result;
+    }
 
     @PostMapping()
     public String Add(@RequestBody CarRequestDto carRequestDto){
@@ -63,6 +78,7 @@ public class CarController {
         carService.update(carRequestDto.toDto());
         return carRequestDto.toString();
     }
+
 
     @DeleteMapping("{id}")
     public ResponseEntity<CarResponseDto> deleteById(@PathVariable("id") Integer id){

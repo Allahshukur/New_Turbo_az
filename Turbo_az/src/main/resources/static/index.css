@@ -33,8 +33,28 @@ body {
     margin-left: -10px;
 }
 
+#ButtonOne:checked {
+
+}
+
 #ButtonOne {
     margin-left: 200px;
+}
+
+#ButtonOne:hover, #ButtonTwo:hover{
+    color: #797979;
+    background: darkred;
+}
+
+.ButtonOne, .ButtonTwo {
+    font-family: "Times New Roman", Times, serif;
+    color: white;
+    text-decoration: none;
+
+}
+
+.ButtonOne:hover, .ButtonTwo:hover {
+    color: #797979;
 }
 
 .HomeButtons button {
@@ -335,6 +355,10 @@ body {
     margin-left: 20px !important;
 }
 
+#buttonAddd {
+    background: darkslategray !important;
+}
+
 #aboutCars {
     margin-top: 60px;
     margin-left: 190px;
@@ -526,6 +550,14 @@ body {
     color: #c71b25;
 }
 
+#buttonDelete {
+    background: #ca1016 !important;
+}
+
+#buttonUpdate {
+    background: #192843 !important;
+}
+
 #update img, #deleteButton img {
     margin-right: 10px;
 }
@@ -534,4 +566,36 @@ body {
     font: 20px "Times New Roman";
     color: #ca1016;
     padding-left: 50px;
+}
+
+.unChecked {
+    background: #ca1016;
+    color: white;
+    width: 200px;
+    height: 50px;
+    border-radius: 30px;
+    font-size: 18px;
+    font-family: "Times New Roman",Times, serif;
+}
+
+.checked {
+    background: darkturquoise;
+    color: #192843;
+    width: 200px;
+    height: 50px;
+    border-radius: 30px;
+    font-size: 18px;
+    font-family: "Times New Roman", Times, serif;
+}
+
+.checkedText {
+    background: green;
+    color: #29313a;
+    width: 300px;
+    border-radius: 10px;
+    height: 40px;
+    font-size: 20px;
+    font-family: "Times New Roman",Times,serif;
+    border-style: none;
+    padding-left: 10px;
 }

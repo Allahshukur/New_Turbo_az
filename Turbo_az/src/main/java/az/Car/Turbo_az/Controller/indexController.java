@@ -16,8 +16,14 @@ public class indexController {
         return "aboutCar";
     }
 
-//    @RequestMapping("/aboutCar/id")
-//    public String fileId(){
-//        return "redirect:/aboutCar";
-//    }
+    @RequestMapping("/search")
+    public String search(){
+        return "searchButton";
+    }
+
+    @RequestMapping("/favorite")
+    public String favorite(){
+        return "favorite";
+    }
+
 }
